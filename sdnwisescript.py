@@ -30,6 +30,8 @@ for line in power_msg:
     if match and match2 and match3 and match4 and match5:
         mote = (match.group(1))
         energy = (match2.group(1))
+        energy = int(energy)
+        energy = energy/1000
         rtt = (match3.group(1))
         sent = (match4.group(1))
         recv = (match5.group(1))
@@ -42,7 +44,7 @@ avg_rtt = 0
 avg_delay = 0
 delay_dict = {10:112,9:117,7:594,8:250,3:480,4:572,5:219}
 for en in energy_dict.keys():
-    avg_energy = avg_energy + int(en)
+    avg_energy = avg_energy + ((int(en)))
 
 avg_energy = avg_energy/(len(energy_dict))
 
@@ -83,8 +85,8 @@ final_sd_rtt = final_sd_rtt/len(sd_rtt)
 final_sd_energy = final_sd_energy/len(sd_energy)
 final_sd_delay = final_sd_delay/len(sd_delay)
 
-print("The average energy consumption is: "+ str(avg_energy)+ "mJ")
-print("The standard deviation in energy consumption is: " + str(final_sd_energy) + "mJ")
+print("The average energy consumption is: "+ str(avg_energy)+ "J")
+print("The standard deviation in energy consumption is: " + str(final_sd_energy/1000) + "J")
 print("The average Round-Trip time is: " +str(avg_rtt)+"ms")
 print("The standard deviation in Round-Trip time: " +str(final_sd_rtt) + "ms")
 print("The average delay is: " +str(avg_delay)+"ms")
@@ -93,7 +95,7 @@ print("The standard deviation in delay: " +str(final_sd_delay) + "ms")
 e = plt.figure('Plot for Energy consumption SDN-WISE')
 plt.bar(list(energy_dict.values()), list(energy_dict.keys()))
 plt.xlabel('Motes')
-plt.ylabel('Energy in (mJ)')
+plt.ylabel('Energy in (J)')
 plt.show()
 
 x = list(rtt_dict.values())
